@@ -37,7 +37,7 @@ function App() {
               <Route path="/bar" element={<Bar />} />
               <Route path="/pie" element={<Pie />} />
               <Route path="/line" element={<Line />} />
-              <Route path="/master/company" element={<Form />} />
+              <Route path="/master/company" element={< Form />} />
               <Route path="/master/branch" element={<Form />} />
               <Route path="/master/asa" element={<Form />} />
               <Route path="/calendar" element={<Calendar />} />
