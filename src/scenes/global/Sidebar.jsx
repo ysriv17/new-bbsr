@@ -17,7 +17,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const Item = ({ title, to, icon, selected, setSelected,setMaster }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -25,8 +25,10 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       active={selected === title}
       style={{
         color: colors.grey[100],
+       
       }}
-      onClick={() => setSelected(title)}
+      onClick={() => {setSelected(title)
+      setMaster(false)}}
       icon={icon}
     >
       <Typography>{title}</Typography>
@@ -40,6 +42,7 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+  const [master, setMaster] = useState(false)
 
   return (
     <Box
@@ -65,7 +68,10 @@ const Sidebar = () => {
         <Menu iconShape="square">
           {/* LOGO AND MENU ICON */}
           <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
+            onClick={() => {
+              setIsCollapsed(!isCollapsed)
+              setMaster(false)
+            }}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
             style={{
               margin: "10px 0 20px 0",
@@ -82,7 +88,9 @@ const Sidebar = () => {
                 <Typography variant="h3" color={colors.grey[100]}>
                   ADMINIS
                 </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <IconButton onClick={() => {
+                  setIsCollapsed(!isCollapsed)
+                }}>
                   <MenuOutlinedIcon />
                 </IconButton>
               </Box>
@@ -96,7 +104,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={`../../assets/OIP.jpeg`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -107,23 +115,64 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
+                  ADMIN
                 </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
-                </Typography>
+
               </Box>
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          <Box >
             <Item
               title="Dashboard"
               to="/"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
+              setMaster={setMaster}
             />
+            <Box bgcolor={master ? "rgb(21, 51, 111)":undefined}>
+              <MenuItem
+                active={selected === "Master"}
+                style={{
+                  color: colors.grey[100],
+                }}
+                icon={<HelpOutlineOutlinedIcon />}
+                onClick={() => { setMaster(!master) }}
+              >
+                <Typography>Master</Typography>
+               <Typography></Typography>
+              </MenuItem>
+            </Box>
+
+            {master ?
+              <Box style={{
+                background: "#266798",
+                paddingLeft: "5%"
+              }}> <Item
+                  title="Company"
+                  to="/master/company"
+                  icon={<HomeOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+
+                /> <Item
+                  title="Branch"
+                  to="/master/branch"
+                  icon={<HomeOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+
+                /> <Item
+                  title="asa"
+                  to="/master/asa"
+                  icon={<HomeOutlinedIcon />}
+                  selected={selected}
+                  setSelected={setSelected}
+
+                />
+              </Box> : undefined
+            }
 
             <Typography
               variant="h6"
@@ -132,27 +181,21 @@ const Sidebar = () => {
             >
               Data
             </Typography>
-            <Item
+            <Item setMaster={setMaster}
               title="Manage Team"
               to="/team"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item setMaster={setMaster}
               title="Contacts Information"
               to="/contacts"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+
 
             <Typography
               variant="h6"
@@ -161,27 +204,21 @@ const Sidebar = () => {
             >
               Pages
             </Typography>
-            <Item
+            <Item setMaster={setMaster}
               title="Profile Form"
               to="/form"
               icon={<PersonOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item setMaster={setMaster}
               title="Calendar"
               to="/calendar"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+
 
             <Typography
               variant="h6"
@@ -190,28 +227,28 @@ const Sidebar = () => {
             >
               Charts
             </Typography>
-            <Item
+            <Item setMaster={setMaster}
               title="Bar Chart"
               to="/bar"
               icon={<BarChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item setMaster={setMaster}
               title="Pie Chart"
               to="/pie"
               icon={<PieChartOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item setMaster={setMaster}
               title="Line Chart"
               to="/line"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            <Item setMaster={setMaster}
               title="Geography Chart"
               to="/geography"
               icon={<MapOutlinedIcon />}
